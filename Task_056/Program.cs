@@ -61,5 +61,6 @@ int[] FindRowWithSmallestSum(int[,] arr)
         Write(rowWithSmallestSum[i] + "\t");
     }
     WriteLine("Sum = " + smallestSum);
+    WriteLine("Number of row with smallest sum: " + (indexRowWIthMinSum + 1) + ".");
     return rowWithSmallestSum;     
 } 
