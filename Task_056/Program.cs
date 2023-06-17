@@ -14,7 +14,7 @@ WriteLine();
 int[,] myArray = GetPrintArray(rows,columns);
 WriteLine();
 WriteLine();
-int[] minSumRows = FindSmallestRow(myArray);
+int[] minSumRows = FindRowWithSmallestSum(myArray);
 
 int[,] GetPrintArray(int rows, int columns)
 {
@@ -32,19 +32,34 @@ int[,] GetPrintArray(int rows, int columns)
     return array;
 }
 
-/*int[] FindSmallestRow(int[,] arr)
+int[] FindRowWithSmallestSum(int[,] arr)
 {
-    int[] smallestRow = new int[arr.GetLength(1)];
-    int sum = 0; int minIndex = 0;
+    int[] rowWithSmallestSum = new int[arr.GetLength(1)];
+    int smallestSum = int.MaxValue;//Присваиваем максимальное значение int;
+    int indexRowWIthMinSum = 0;//вернет первую строку в случае одинковых сум среди всех строк.
     for (int i = 0; i < arr.GetLength(0); i++)
     {
+        int sumNumbersInRow = 0;//При смене строки пееременная с суммой обнуляется.
         for (int j = 0; j < arr.GetLength(1); j++)
         {
-            smallestRow[j] = arr[i,j];
+            sumNumbersInRow += arr[i,j];
         }
-        int smallestRow = smallestRow.Sum();//sum of all elements in array.
-        if(sum < smallestRow) sum = smallestRow; minIndex = i;
+
+        if(smallestSum > sumNumbersInRow) 
+        {
+            smallestSum = sumNumbersInRow; 
+            indexRowWIthMinSum = i;
+        }
     }
-    return smallestRow[minIndex];  
-    
-}*/ 
+    for (int j = 0; j < arr.GetLength(1); j++)
+    {
+       rowWithSmallestSum[j] = arr[indexRowWIthMinSum,j];//Перебираем строки только 1 раз. Гуд!
+    }
+    WriteLine("Row with smallest sum: ");
+    for (int i = 0; i < rowWithSmallestSum.Length; i++)
+    {
+        Write(rowWithSmallestSum[i] + "\t");
+    }
+    WriteLine("Sum = " + smallestSum);
+    return rowWithSmallestSum;     
+} 
